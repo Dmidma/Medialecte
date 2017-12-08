@@ -7,10 +7,14 @@
 
 
     <string name="hint_search_field">Chercher</string>
-    <sting name="hint_add_french_word">Français</sting>
-    <sting name="hint_add_arabic_word">عربي</sting>
+    <string name="hint_add_french_word">Français</string>
+    <string name="hint_add_arabic_word">عربي</string>
+
+    <string name="btn_add_word">Ajouter</string>
 
     <string name="add_word_label">Ajouter Un Mot</string>
+
+    <string name="no_words_yet">Pas de Mots</string>
 
 </resources>
 
