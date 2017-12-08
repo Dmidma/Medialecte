@@ -2,12 +2,15 @@
     <string name="app_name">Medialecte</string>
 
 
-
     <!-- content provider authority -->
     <string name="provider_authority" translatable="false">com.example.android.medialecte</string>
 
 
     <string name="hint_search_field">Chercher</string>
+    <sting name="hint_add_french_word">Français</sting>
+    <sting name="hint_add_arabic_word">عربي</sting>
 
+    <string name="add_word_label">Ajouter Un Mot</string>
 
 </resources>
+

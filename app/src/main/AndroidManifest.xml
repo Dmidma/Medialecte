@@ -16,13 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        
+
         <provider
-            android:authorities="@string/provider_authority"
             android:name=".provider.DialectProvider"
+            android:authorities="@string/provider_authority"
             android:exported="false" />
-        
+
+        <activity android:name=".AddWordActivity"
+            android:label="@string/add_word_label"
+            android:parentActivityName=".HomeActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
     </application>
 
 </manifest>
