@@ -6,4 +6,8 @@
     <!-- content provider authority -->
     <string name="provider_authority" translatable="false">com.example.android.medialecte</string>
 
+
+    <string name="hint_search_field">Chercher</string>
+
+
 </resources>
