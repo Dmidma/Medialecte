@@ -20,7 +20,7 @@ public class DialectContract {
     // path to the table
     public static final String PATH_DIALECT = "dialect";
 
-    public static final class dialectEntry implements BaseColumns {
+    public static final class DialectEntry implements BaseColumns {
 
         // content uri
         public static final Uri CONTENT_URI =
