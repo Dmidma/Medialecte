@@ -1,5 +1,6 @@
 package com.example.android.medialecte;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -8,13 +9,16 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.medialecte.adapter.WordsListAdapter;
 import com.example.android.medialecte.data.ARow;
 import com.example.android.medialecte.data.FetchData;
+import com.example.android.medialecte.provider.DialectContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +66,21 @@ public class HomeActivity extends AppCompatActivity implements
         // set Adapter
         mWordsListAdapter = new WordsListAdapter(mContext, new ArrayList<ARow>());
         mLvWordsList.setAdapter(mWordsListAdapter);
+        mLvWordsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                int deleted = getContentResolver().delete(
+                        ContentUris.withAppendedId(DialectContract.DialectEntry.CONTENT_URI, l),
+                        null,
+                        null);
+
+                if (deleted > 0) {
+                    Toast.makeText(mContext, "Supprimé", Toast.LENGTH_LONG).show();
+                    onResume();
+                }
+
+            }
+        });
 
     }
 
