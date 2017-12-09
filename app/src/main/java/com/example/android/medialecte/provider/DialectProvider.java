@@ -25,6 +25,7 @@ public class DialectProvider extends ContentProvider {
 
     // define codes to match with URI
     public static final int CODE_DIALECT = 100;
+    public static final int CODE_DIALECT_ID = 101;
 
     // set URI matcher
     private static final UriMatcher sUriMatcher = buildUriMatcher();
@@ -41,6 +42,7 @@ public class DialectProvider extends ContentProvider {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
         uriMatcher.addURI(DialectContract.AUTHORITY, DialectContract.PATH_DIALECT, CODE_DIALECT);
+        uriMatcher.addURI(DialectContract.AUTHORITY, DialectContract.PATH_DIALECT + "/#", CODE_DIALECT_ID);
 
         return uriMatcher;
     }
@@ -103,8 +105,28 @@ public class DialectProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
-        throw new RuntimeException("This method is not implemented yet");
+    public int delete(Uri uri, String s, String[] strings) {
+        final SQLiteDatabase db = mDialectDbHelper.getWritableDatabase();
+
+        int numberDeleted;
+
+        switch (sUriMatcher.match(uri)) {
+            case CODE_DIALECT_ID:
+                String id = uri.getPathSegments().get(1);
+                String selection = DialectEntry._ID + "=?";
+                numberDeleted = db.delete(
+                        DialectEntry.TABLE_NAME,
+                        selection,
+                        new String[] {id});
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
+        if (numberDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return numberDeleted;
     }
 
     @Nullable
