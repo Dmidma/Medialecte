@@ -1,10 +1,14 @@
 package com.example.android.medialecte.adapter;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
+import com.example.android.medialecte.R;
 import com.example.android.medialecte.data.ARow;
 
 import java.util.List;
@@ -51,6 +55,15 @@ public class WordsListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        return null;
+        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+        ConstraintLayout constraintLayout = (ConstraintLayout) layoutInflater.inflate(R.layout.list_item, null);
+
+        TextView mTvFrencWord = (TextView) constraintLayout.findViewById(R.id.tv_lv_french_word);
+        TextView mTvArabicWord = (TextView) constraintLayout.findViewById(R.id.tv_lv_arabic_word);
+
+        mTvFrencWord.setText(mData.get(i).getFrenchWord());
+        mTvArabicWord.setText(mData.get(i).getArabicWord());
+
+        return constraintLayout;
     }
 }

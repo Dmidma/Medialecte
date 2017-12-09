@@ -16,6 +16,7 @@ import com.example.android.medialecte.adapter.WordsListAdapter;
 import com.example.android.medialecte.data.ARow;
 import com.example.android.medialecte.data.FetchData;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -38,7 +39,6 @@ public class HomeActivity extends AppCompatActivity implements
 
     private TextView mTvNothingFound;
 
-    private FetchData mFetchData;
 
 
     @Override
@@ -59,12 +59,23 @@ public class HomeActivity extends AppCompatActivity implements
         mTvNothingFound = (TextView) findViewById(R.id.tv_nothing_found);
 
 
-        // get the data
-        mFetchData = new FetchData(mContext, this);
-        
+        // set Adapter
+        mWordsListAdapter = new WordsListAdapter(mContext, new ArrayList<ARow>());
+        mLvWordsList.setAdapter(mWordsListAdapter);
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mEtSearch.getText().toString().isEmpty())
+            new FetchData(mContext, this).execute();
+        else
+            new FetchData(mContext, this).execute(mEtSearch.getText().toString().toLowerCase(Locale.getDefault()));
+
+    }
 
     @Override
     public void onClick(View view) {
@@ -100,6 +111,7 @@ public class HomeActivity extends AppCompatActivity implements
     @Override
     public void afterTextChanged(Editable editable) {
         String currentText = mEtSearch.getText().toString().toLowerCase(Locale.getDefault());
+        new FetchData(mContext, this).execute(currentText);
     }
 
 
@@ -126,6 +138,8 @@ public class HomeActivity extends AppCompatActivity implements
 
         hideListView(doHide);
 
+        // you can optimize here by only resetting data if we are still displaying
+        // the list
         mWordsListAdapter.setData(data);
     }
 }

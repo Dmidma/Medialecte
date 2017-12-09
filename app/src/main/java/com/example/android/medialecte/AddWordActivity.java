@@ -70,5 +70,6 @@ public class AddWordActivity extends AppCompatActivity implements
         // clear the edit texts
         mEtFrenchWord.setText("");
         mEtArabicWord.setText("");
+
     }
 }
