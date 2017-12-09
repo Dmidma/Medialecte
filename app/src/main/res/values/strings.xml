@@ -16,5 +16,8 @@
 
     <string name="no_words_yet">Pas de Mots</string>
 
+    <string name="two_words_constraint">Veuillez remplir les 2 champs!</string>
+    <string name="done_adding_toast">ajouté avec succès</string>
+
 </resources>
 

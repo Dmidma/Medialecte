@@ -12,11 +12,17 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.android.medialecte.adapter.WordsListAdapter;
+import com.example.android.medialecte.data.ARow;
+import com.example.android.medialecte.data.FetchData;
+
+import java.util.List;
 import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity implements
         View.OnClickListener,
-        TextWatcher {
+        TextWatcher,
+        FetchData.HandleFetchingData {
 
 
     private static final String TAG = HomeActivity.class.getSimpleName();
@@ -28,8 +34,11 @@ public class HomeActivity extends AppCompatActivity implements
     private FloatingActionButton mFabAddWord;
 
     private ListView mLvWordsList;
+    private WordsListAdapter mWordsListAdapter;
 
     private TextView mTvNothingFound;
+
+    private FetchData mFetchData;
 
 
     @Override
@@ -48,6 +57,11 @@ public class HomeActivity extends AppCompatActivity implements
         mLvWordsList = (ListView) findViewById(R.id.lv_words);
 
         mTvNothingFound = (TextView) findViewById(R.id.tv_nothing_found);
+
+
+        // get the data
+        mFetchData = new FetchData(mContext, this);
+        
 
     }
 
@@ -101,4 +115,17 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
 
+    @Override
+    public void finishFetchingData(List<ARow> data) {
+
+        // check if we have data in for the list
+        // hide and display accordingly
+        boolean doHide = true;
+        if (data.size() > 0)
+            doHide = false;
+
+        hideListView(doHide);
+
+        mWordsListAdapter.setData(data);
+    }
 }
