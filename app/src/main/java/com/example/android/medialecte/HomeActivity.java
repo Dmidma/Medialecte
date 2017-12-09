@@ -75,6 +75,8 @@ public class HomeActivity extends AppCompatActivity implements
         else
             new FetchData(mContext, this).execute(mEtSearch.getText().toString().toLowerCase(Locale.getDefault()));
 
+        findViewById(R.id.cl_home_activity).requestFocus();
+
     }
 
     @Override

@@ -2,9 +2,12 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_home_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.medialecte.HomeActivity">
+    tools:context="com.example.android.medialecte.HomeActivity"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <EditText
         android:id="@+id/et_search_field"
@@ -13,6 +16,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/hint_search_field"
+        android:nextFocusLeft="@id/et_search_field"
+        android:nextFocusUp="@id/et_search_field"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
