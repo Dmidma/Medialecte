@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.medialecte.adapter.WordsAdapter;
 import com.example.android.medialecte.adapter.WordsListAdapter;
 import com.example.android.medialecte.data.ARow;
 import com.example.android.medialecte.data.FetchData;
@@ -38,8 +41,8 @@ public class HomeActivity extends AppCompatActivity implements
 
     private FloatingActionButton mFabAddWord;
 
-    private ListView mLvWordsList;
-    private WordsListAdapter mWordsListAdapter;
+    private RecyclerView mRvWordsList;
+    private WordsAdapter mWordsAdapter;
 
     private TextView mTvNothingFound;
 
@@ -58,11 +61,22 @@ public class HomeActivity extends AppCompatActivity implements
         mFabAddWord = (FloatingActionButton) findViewById(R.id.fab_add_word);
         mFabAddWord.setOnClickListener(this);
 
-        mLvWordsList = (ListView) findViewById(R.id.lv_words);
-
         mTvNothingFound = (TextView) findViewById(R.id.tv_nothing_found);
 
+        // set recycler view
 
+        mRvWordsList = (RecyclerView) findViewById(R.id.rv_words_list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setReverseLayout(false);
+        mRvWordsList.setLayoutManager(layoutManager);
+        mRvWordsList.setHasFixedSize(true);
+
+        mWordsAdapter = new WordsAdapter(new ArrayList<ARow>());
+        mRvWordsList.setAdapter(mWordsAdapter);
+
+
+        /*
         // set Adapter
         mWordsListAdapter = new WordsListAdapter(mContext, new ArrayList<ARow>());
         mLvWordsList.setAdapter(mWordsListAdapter);
@@ -81,6 +95,7 @@ public class HomeActivity extends AppCompatActivity implements
 
             }
         });
+        */
 
     }
 
@@ -139,10 +154,10 @@ public class HomeActivity extends AppCompatActivity implements
     // method to hide listview and display message or vice versa
     private void hideListView(boolean doHide) {
         if (doHide) {
-            mLvWordsList.setVisibility(View.GONE);
+            mRvWordsList.setVisibility(View.GONE);
             mTvNothingFound.setVisibility(View.VISIBLE);
         } {
-            mLvWordsList.setVisibility(View.VISIBLE);
+            mRvWordsList.setVisibility(View.VISIBLE);
             mTvNothingFound.setVisibility(View.GONE);
         }
     }
@@ -161,6 +176,6 @@ public class HomeActivity extends AppCompatActivity implements
 
         // you can optimize here by only resetting data if we are still displaying
         // the list
-        mWordsListAdapter.setData(data);
+        mWordsAdapter.resetData(data);
     }
 }
